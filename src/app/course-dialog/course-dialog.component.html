@@ -1,0 +1,58 @@
+
+<div class="container m-2">
+  <h1>Kursdetails</h1>
+  <div class="row">
+    <div class="col">
+      <p>ID: {{ data.course.id }}</p>
+      <p>Name: {{ data.course.name }}</p>
+      <p>Startzeit: {{ data.course.timeFrom }}</p>
+      <p>Lehrer: {{ data.course.teacher }}</p>
+      <h3>Wer besucht diesen Kurs?</h3>
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <mat-select [(value)]="selectedUsername">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let name of existingNames" [value]="name.username">{{name.username}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <h3>Ist dein Name nicht in der Liste? Dann trage dich neu ein</h3>
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" [(ngModel)]="username">
+      </mat-form-field>
+      <mat-checkbox [(ngModel)]="isLeader" class="example-margin">
+        Leader
+      </mat-checkbox>
+      <mat-checkbox [(ngModel)]="isFollower" class="example-margin">
+        Follower
+      </mat-checkbox>
+
+    </div>
+    <div class="col">
+      <h3>Teilnehmer</h3>
+      <div class="row">
+        <div class="col">
+          <h4>Leader</h4>
+          <ul>
+            <li *ngFor="let participant of leader">
+              <span>{{participant.username}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col">
+          <h4>Follower</h4>
+          <ul>
+            <li *ngFor="let participant of follower">
+              <span>{{participant.username}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()">Abbrechen</button>
+    <button mat-button (click)="onSaveClick()">Speichern</button>
+  </div>
+</div>
