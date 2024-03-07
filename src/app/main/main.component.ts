@@ -3,7 +3,7 @@ import { DataService } from '../services/data.service';
 import { CourseDialogComponent } from '../course-dialog/course-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
-interface DayArr {
+interface Arr {
   [key: string]: string;
 }
 
@@ -13,8 +13,9 @@ interface DayArr {
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
-  courses: {}[] = [];
-  displayedColumns: string[] = ['name', 'timeFrom', 'teacher', "room", "day"];
+  courses: {day: ''}[] = [];
+  days: string[] = [];
+  displayedColumns: string[] = ['name', 'timeFrom', 'teacher', "room"];
   constructor(private dataService: DataService, public dialog: MatDialog) {
 
   }
@@ -23,6 +24,12 @@ export class MainComponent {
     this.dataService.loadCoursesFromAPI().subscribe(
       (data: any[]) => {
         this.courses = data;
+
+        const uniqueDaysSet = new Set<string>();
+        this.courses.forEach(course => {
+          uniqueDaysSet.add(course.day);
+        });
+        this.days =  Array.from(uniqueDaysSet);
       },
       (error: any) => {
         console.error('Error loading courses:', error);
@@ -42,17 +49,21 @@ export class MainComponent {
     });
   }
 
+  getCoursesByDay(day: any) {
+    return this.courses.filter((course) => course.day == day)
+  }
 
-  getDay(str: string): string | undefined {
-      const dayArr: DayArr = {
-        "MON": "Montag",
-        "TUE": "Dienstag",
-        "WED": "Mittwoch",
-        "THU": "Donnerstag",
-        "FRI": "Freitag",
-        "SAT": "Samstag",
-        "SUN": "Sonntag"
-      };
-      return dayArr[str];
-  } 
+  getDay(str: any): string | undefined {
+    const dayArr: Arr = {
+      "MON": "Montag",
+      "TUE": "Dienstag",
+      "WED": "Mittwoch",
+      "THU": "Donnerstag",
+      "FRI": "Freitag",
+      "SAT": "Samstag",
+      "SUN": "Sonntag"
+    };
+    return dayArr[str];
+  }
+
 }

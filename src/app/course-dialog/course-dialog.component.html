@@ -6,7 +6,7 @@
       <p>ID: {{ data.course.id }}</p>
       <p>Name: {{ data.course.name }}</p>
       <p>Startzeit: {{ data.course.timeFrom }}</p>
-      <p>Lehrer: {{ data.course.teacher }}</p>
+      <p>Lehrer: {{ getTeacherFullName(data.course.teacher) }}</p>
       <h3>Wer besucht diesen Kurs?</h3>
       <mat-form-field class="example-full-width">
         <mat-label>Name</mat-label>

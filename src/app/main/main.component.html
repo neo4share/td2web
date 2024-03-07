@@ -1,34 +1,39 @@
 <!-- Import der erforderlichen Angular Material-Komponenten -->
-<table mat-table [dataSource]="courses" class="mat-elevation-z8">
+<mat-accordion>
+  <ng-container *ngFor="let day of days">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ getDay(day) }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <table mat-table [dataSource]="getCoursesByDay(day)" class="mat-elevation-z8">
 
-  <!-- Spaltenüberschriften -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let course">{{ course.name }}</td>
+        <!-- Spaltenüberschriften -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let course">{{ course.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="timeFrom">
+          <th mat-header-cell *matHeaderCellDef>Startzeit</th>
+          <td mat-cell *matCellDef="let course">{{ course.timeFrom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="teacher">
+          <th mat-header-cell *matHeaderCellDef>Lehrer</th>
+          <td mat-cell *matCellDef="let course">{{ course.teacher }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="room">
+          <th mat-header-cell *matHeaderCellDef>Raum</th>
+          <td mat-cell *matCellDef="let course">{{ course.room }}</td>
+        </ng-container>
+
+        <!-- Zeilen mit Kursdaten -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
+      </table>
+    </mat-expansion-panel>
   </ng-container>
-
-  <ng-container matColumnDef="timeFrom">
-    <th mat-header-cell *matHeaderCellDef>Startzeit</th>
-    <td mat-cell *matCellDef="let course">{{ course.timeFrom }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="teacher">
-    <th mat-header-cell *matHeaderCellDef>Lehrer</th>
-    <td mat-cell *matCellDef="let course">{{ course.teacher }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="room">
-    <th mat-header-cell *matHeaderCellDef>Raum</th>
-    <td mat-cell *matCellDef="let course">{{ course.room }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="day">
-    <th mat-header-cell *matHeaderCellDef>Tag</th>
-    <td mat-cell *matCellDef="let course">{{ getDay(course.day) }}</td>
-  </ng-container>
-
-
-  <!-- Zeilen mit Kursdaten -->
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
-</table>
+</mat-accordion>

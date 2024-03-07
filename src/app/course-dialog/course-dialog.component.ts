@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataService } from '../services/data.service';
-
+interface Arr {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'app-course-dialog',
@@ -110,5 +112,19 @@ export class CourseDialogComponent {
   getFollower() {
     if(this.courseParticipants)
        this.follower =  this.courseParticipants?.filter((el) => el.gender && el.gender == 'follower')
+  }
+
+  getTeacherFullName(str: any): string | undefined {
+    const teacherArr: Arr = {
+      "KS": "Kevyn Spohrmann",
+      "IP": "Irene Poppinga",
+      "TT": "Thomas Trätow",
+      "IH": "Iris Horgas",
+      "LJ": "Lèon John",
+      "CS": "Corinna Schneider",
+      "TH": "Tobias Hein",
+      "IP/TT": "Irene und Thomas"
+    };
+    return teacherArr[str];
   }
 }
