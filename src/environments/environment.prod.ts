@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://82.165.127.6:3000', // Beispiel-URL für die Produktionsumgebung
+    apiUrl: 'https://warm-shelf-15696-ae5abb4b0d3e.herokuapp.com', // Beispiel-URL für die Produktionsumgebung
   };
   
